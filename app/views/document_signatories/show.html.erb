@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Document:</b>
+  <%= @document_signatory.document_id %>
+</p>
+
+<p>
+  <b>Person:</b>
+  <%= @document_signatory.person_id %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @document_signatory.type %>
+</p>
+
+
+<%= link_to 'Edit', edit_document_signatory_path(@document_signatory) %> |
+<%= link_to 'Back', document_signatories_path %>

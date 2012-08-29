@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @document.name %>
+</p>
+
+<p>
+  <b>Document Signatories:</b>
+  <%= @document.document_signatories %>
+</p>
+
+<p>
+  <b>Signatories:</b>
+  <%= @document.signatories %>
+</p>
+
+<p>
+  <b>Document Signatories People:</b>
+  <%= @document.document_signatories.each do |ds|  %>
+    <%= ds.signatory %>
+  <%end%>
+</p>
+
+
+<%= link_to 'Edit', edit_document_path(@document) %> |
+<%= link_to 'Back', documents_path %>

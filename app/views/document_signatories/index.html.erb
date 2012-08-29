@@ -1,0 +1,27 @@
+<h1>Listing document_signatories</h1>
+
+<table>
+  <tr>
+    <th>Document</th>
+    <th>Person</th>
+    <th>Type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @document_signatories.each do |document_signatory| %>
+  <tr>
+    <td><%= document_signatory.document_id %></td>
+    <td><%= document_signatory.person_id %></td>
+    <td><%= document_signatory.type %></td>
+    <td><%= link_to 'Show', document_signatory %></td>
+    <td><%= link_to 'Edit', edit_document_signatory_path(document_signatory) %></td>
+    <td><%= link_to 'Destroy', document_signatory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Document signatory', new_document_signatory_path %>

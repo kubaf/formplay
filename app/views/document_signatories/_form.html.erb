@@ -1,0 +1,29 @@
+<%= form_for(@document_signatory) do |f| %>
+  <% if @document_signatory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@document_signatory.errors.count, "error") %> prohibited this document_signatory from being saved:</h2>
+
+      <ul>
+      <% @document_signatory.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :document_id %><br />
+    <%= f.number_field :document_id %>
+  </div>
+  <div class="field">
+    <%= f.label :person_id %><br />
+    <%= f.number_field :person_id %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
