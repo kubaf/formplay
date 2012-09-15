@@ -1,4 +1,9 @@
 class DocumentsController < ApplicationController
+  
+  # Remove div created for the adding of new rows before we pass it on to the models
+  before_filter :remove_hidden_signatory
+  
+  
   # GET /documents
   # GET /documents.json
   def index
@@ -24,10 +29,13 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   # GET /documents/new.json
   def new
+
+    # Here we build the association for the form with a new blank document_signatory so that the 
+    # form builder can build the fields for us
     @document = Document.new
     ds = @document.document_signatories.build
-    #ds.build_person
     ds.build_signatory
+
     
     respond_to do |format|
       format.html # new.html.erb
@@ -84,4 +92,12 @@ class DocumentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+
+    def remove_hidden_signatory
+      params[:document][:document_signatories_attributes].delete("new_document_signatories") unless 
+        params[:document].nil? or  params[:document][:document_signatories_attributes].nil?     
+    end
+  
 end

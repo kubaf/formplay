@@ -1,4 +1,4 @@
-<%= form_for(@document) do |f| %>
+<%= nested_form_for(@document) do |f| %>
   <% if @document.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
@@ -14,21 +14,50 @@
   <div class="field">
     <%= f.label :name, "document name"%><br />
     <%= f.text_field :name %>
-  </div>
+
+    <%
+    pp "f.object.document_signatories"
+    pp f.object.document_signatories
+
+
+    %>
+  
   <div class="field">
-    <%= f.fields_for :document_signatories do |f2| %>
+    <%= f.fields_for :document_signatories, 
+          f.object.document_signatories.empty? ? 
+          f.object.document_signatories.build : 
+          :document_signatories  do |f2| %>
       <%= f2.label :signatory_type, "signatory type"%><br />
       <%= f2.text_field :signatory_type %>
+      <%= f2.link_to_remove "Remove this Document Signatory"%>
 
-  </div>
-  <div class="field">
-    <%= f2.fields_for :signatory do |f3| %>
-      <%= f3.label :name, "person name"%><br />
-      <%= f3.text_field :name %>
+<%
+pp "f2.object.signatory.nil?"
+pp f2.object.signatory.nil?
+
+
+
+%>
+
+      <div class="field">
+        <%= f2.fields_for :signatory, f2.object.signatory.nil? ? f2.object.build_signatory : :signatory do |f3| %>
+          <%= f3.label :name, "person name"%><br />
+          <%= f3.text_field :name %>
+          <%= f2.link_to_remove "Remove this Signatory"%>
+        <%end%>
+        <%#= f2.link_to_add "Add a Signatory", :signatory -%>
+      </div>
+      
+   
+ 
+  
     <%end%>
+    
+    <%#= f.link_to_add "Add a Document Signatory", :document_signatories, :create_blank_submodel => :signatory %>
+    <%= f.link_to_add "Add a Document Signatory", :document_signatories %>
   </div>
-    <%end%>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+  </div>
