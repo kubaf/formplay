@@ -1,6 +1,8 @@
 class Document < ActiveRecord::Base
   attr_accessible :name, :document_signatories_attributes
   
+  belongs_to :person
+  
   has_many :document_signatories, :dependent => :destroy
   has_many :signatories, :through=>:document_signatories, :source=>:signatory, :dependent => :destroy
   
